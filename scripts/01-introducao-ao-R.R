@@ -19,17 +19,22 @@
 # potência
 4 ^ 2
 
+days <- 43 * 30 * 12
+
+1 + 
+
 # Criando objetos/variáveis -----------------------------------------------
 
 # Salvando o valor 1 no objeto "obj"
 obj <- 1
+obj2 = 1
 obj
 
 # Também dizemos 'guardando as saídas'
 soma <- 2 + 2
 soma
 
-# ATALHO para a <- : ALT - (alt menos)
+# ATALHO para a <- : ALT (option) - (alt menos)
 
 # O R difencia minúscula de maiúscula!
 
@@ -65,12 +70,20 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 
 # Exercícios --------------------------------------------------------------
 
-# 1. Linhas que começam com # são comentários. Elas são ignoradas na hora
-# de avaliar o código. Coloque o cursor em cima de um comentário, pressione
-# CTRL + ENTER e tente entender qual operação o RStudio realizou no Console.
+# 1. Linhas que começam com # são comentários. 
+# Elas são ignoradas na hora
+# de avaliar o código. Coloque o cursor em 
+# cima de um comentário, pressione
+# CTRL + ENTER e tente entender qual operação 
+# o RStudio realizou no Console.
 
-# 2. Multiplique a sua idade por 12 e salve em um objeto chamado "meses".
+# 2. Multiplique a sua idade por 12 
+# e salve em um objeto chamado "meses".
 
+meses <- 20.5 * 12
+meses
+
+rm(meses)
 
 # Data frames -------------------------------------------------------------
 
@@ -89,13 +102,13 @@ mtcars
 ##############################
 
 a <- 10
-
+rm(a)
 # O objeto a, sem aspas
 a
 
 # A letra (texto) a, com aspas
 "a"
-
+'a'
 # Numéricos (numeric)
 
 a <- 10
@@ -106,13 +119,20 @@ class(a)
 obj <- "a"
 obj2 <- "masculino"
 
+# string é um nome também dado aos characteres
+
 class(obj)
-class(obs2)
+class(obj2)
+
+str(obj)
 
 # lógicos (logical, booleanos)
 
 verdadeiro <- TRUE
 falso <- FALSE
+
+# Isso dá erro
+# TRUE <- 1
 
 class(verdadeiro)
 class(falso)
@@ -121,6 +141,8 @@ class(falso)
 
 mtcars
 class(mtcars)
+
+str(mtcars)
 
 # Vetores -----------------------------------------------------------------
 
@@ -132,8 +154,11 @@ vetor2 <- c("a", "b", "z")
 vetor1
 vetor2
 
-# Uma maneira fácil de criar um vetor com uma sequência de números 
+# Uma maneira fácil de criar um vetor com
+# uma sequência de números 
 # é utilizar o operador `:`
+
+letters
 
 # Vetor de 1 a 10
 1:10
@@ -145,21 +170,29 @@ vetor2
 -3:3
 
 # Quando dizemos que vetores são conjuntos indexados, 
-# isso quer dizer que cada valor dentro de um vetor tem uma posição
+# isso quer dizer que cada valor 
+# dentro de um vetor tem uma posição
 
 vetor <- c("a", "b", "c", "d")
+
+vetor2 <- vetor[1:3]
+vetor2
 
 vetor[1]
 vetor[2]
 vetor[3]
 vetor[4]
 
+vetor[1:3]
 vetor[c(2, 3)]
 vetor[c(1, 2, 4)]
 
 vetor[5]
 
-# Um vetor só pode guardar um tipo de objeto e ele terá sempre 
+vetor[c(-1,-3)]
+
+# Um vetor só pode guardar um tipo de objeto e 
+# ele terá sempre 
 # a mesma classe dos objetos que guarda
 
 vetor1 <- c(1, 5, 3, -10)
@@ -171,9 +204,11 @@ class(vetor2)
 # Se tentarmos misturar duas classes, o R vai apresentar o 
 # comportamento conhecido como coerção
 
-vetor <- c(1, 2, "a")
+20, 21, 23, a, 20, 15
 
+vetor <- c(1, 2, "a")
 vetor
+
 class(vetor)
 
 # Naturalmente, podemos fazer operações matemáticas com vetores
@@ -264,7 +299,6 @@ minha_coluna <- c(1, 3, 0, 10, -1, 5, 20)
 minha_coluna > 3
 
 minha_coluna[minha_coluna > 3]
-
 
 # Exercícios --------------------------------------------------------------
 
