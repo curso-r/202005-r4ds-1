@@ -204,7 +204,7 @@ class(vetor2)
 # Se tentarmos misturar duas classes, o R vai apresentar o 
 # comportamento conhecido como coerção
 
-20, 21, 23, a, 20, 15
+# 20, 21, 23, a, 20, 15
 
 vetor <- c(1, 2, "a")
 vetor
@@ -215,10 +215,12 @@ class(vetor)
 
 vetor <- c(0, 5, 20, -3)
 
-vetor + 1
+vetor + c(1, 1, 1, 1)
 vetor - 1
 vetor / 2
 vetor * 10
+
+c(0, 5, 20, -3) + c(1, 1, 1, 1)
 
 # Você também pode fazer operações que envolvem mais de um vetor:
 
@@ -233,6 +235,8 @@ vetor1  + vetor2
 vetor1 <- c(1, 2)
 vetor2 <- c(10, 20, 30, 40)
 
+vetor1 + vetor2
+
 # Esse comportamento é chamado de reciclagem.
 
 # As coisas ficam um pouco mais confusas quando os comprimentos
@@ -245,14 +249,35 @@ vetor1 + vetor2
 
 # Exercícios --------------------------------------------------------------
 
+vetor1 <- c(1, 2, 3)
+
+vetor1[1]
+vetor1[-1]
+
+novo_vetor <- vetor1[1]
+vetor1 <- vetor1[1]
+
+# logical < numeric < character
+
 # a. Guarde em um objeto uma sequência de números que comece 
 # em 0 e termine em 5.
 
-# b. Use subsetting para fazer o R devolver o primeiro número dessa sequência.
+meu_objeto <- 0:5
+meu_objeto <- c(0, 1, 2, 3, 4, 5)
+
+# b. Use subsetting para fazer o R devolver o 
+# primeiro número dessa sequência.
 # Em seguida, faça o R devolver o último número da sequência.
 
-# c. Multiplique todos os valores do vetor por -1. Guarde o resultado em
+meu_objeto[1]
+meu_objeto[6]
+
+# c. Multiplique todos os valores do vetor por -1. 
+# Guarde o resultado em
 # um novo objeto.
+
+novo_objeto <- meu_objeto * (-1)
+novo_objeto
 
 # Comparações lógicas ------------------------------------------------------
 
@@ -263,7 +288,7 @@ class(FALSE)
 
 # TRUE e FALSE são nomes reservados
 
-TRUE <- 1
+TRUE <- 100
 
 # Testes com resultado verdadeiro
 1 == 1
@@ -273,12 +298,16 @@ TRUE <- 1
 1 == 2
 "a" == "b"
 
+# Diferente
+1 != 1
+1 != 2
+
 # Maior
 3 > 3
 3 > 2
 
 # Maior ou igual
-3 > 4
+3 >= 4
 3 >= 3
 
 # Menor 
@@ -286,7 +315,7 @@ TRUE <- 1
 3 < 4
 
 # Menor ou igual
-3 < 2
+3 <= 2
 3 <= 3
 
 3 %in% c(1, 2, 3)
@@ -297,44 +326,73 @@ TRUE <- 1
 minha_coluna <- c(1, 3, 0, 10, -1, 5, 20)
 
 minha_coluna > 3
+minha_coluna > c(3, 3, 3, 3, 3, 3, 3)
 
 minha_coluna[minha_coluna > 3]
+
+minha_coluna[c(FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE)]
 
 # Exercícios --------------------------------------------------------------
 
 # 1. O que acontece se tentarmos misturar valores lógicos e texto em um
 # vetor? E se misturarmos valores lógicos e números?
 
+c(TRUE, FALSE, "a")
+c(TRUE, FALSE, 33)
+
+minha_coluna <- c(1, 3, 0, 10, -1, 5, 20)
+
+sum(minha_coluna > 3)
+
 # 2. Escreva um código que devolva apenas os valores maiores
 # ou iguais a 10 do vetor abaixo:
 
-vetor <- c(4, 8, 15, 16, 23, 42)
+vetor <- c(4, 8, 15, 16, 20, 42)
+
+resultado_do_teste <- vetor >= 10
+
+vetor[vetor >= 10]
+vetor[resultado_do_teste]
 
 # [DESAFIO] Escreva um código que devolta apenas os valores pares
 # do vetor acima.
+
+vetor[vetor %% 2 == 0]
 
 # Dica: o operador %% devolve o resto da divisão entre dois números
 
 3 %% 2
 
+vetor[c(1, 2, 4, 6)]
+
 # Valores especiais -------------------------------------------------------
+
+
+vetor[10]
 
 # Existem valores reservados para representar dados faltantes, 
 # infinitos, e indefinições matemáticas.
 
 NA   # (Not Available) significa dado faltante/indisponível. 
 
-NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1). 
+NaN  # (Not a Number) representa indefinições matemáticas, 
+# como 0/0 e log(-1). 
 # Um NaN é um NA, mas a recíproca não é verdadeira.
 
-Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo, 
+log(c(1, 10, -1, 2))
+c(log(1), log(10), log(-1), log(2))
+
+Inf  # (Infinito) é um número muito grande ou o limite matemático, 
+# por exemplo, 
 # 1/0 e 10^310. Aceita sinal negativo -Inf.
 
-NULL # representa a ausência de informação.
+NULL # representa a ausência de objeto.
 
 # Comparações lógicas
 
-5 == NA
+c("a", "b", NA)
+
+"a" == NA
 
 idade_ana <- 30
 idade_beto <- NA
@@ -354,14 +412,28 @@ is.na(x)
 0/0 == NaN
 is.nan(0/0)
 
-
 minha_coluna <- c(1, 2, 3, NA, 5)
 is.na(minha_coluna)
+
+minha_coluna[is.na(minha_coluna)]
+
+# ! é o operador negação
+
+!TRUE
+!FALSE
+
+!is.na(minha_coluna)
+minha_coluna[!is.na(minha_coluna)]
 
 is.nan(NaN)
 is.infinite(10^309)
 is.null(NULL)
 
+minha_coluna <- c(0, 10, 2, 55, 100)
+log_coluna <- log(minha_coluna)
+mean(log_coluna)
+
+is.infinite(log_coluna)
 
 # Data frames, o retorno --------------------------------------------------
 
@@ -372,12 +444,16 @@ mtcars
 mtcars$mpg
 mtcars$cyl
 
-# A classe data frame tem uma característica especial: dimensão
+# A classe data frame tem uma característica 
+# especial: dimensão
 
 dim(mtcars)
 
 vetor <- c(1, 2)
 dim(vetor)
+
+matriz <- matrix(1:4, 2, 2)
+dim(matriz)
 
 # Subsetting em objetos com 2 dimensões
 
@@ -387,6 +463,8 @@ mtcars[1,1]
 mtcars[,1]
 mtcars[1,]
 
+vetor[1]
+
 # Selecionando colunas
 
 mtcars[, c(1, 2)]
@@ -394,8 +472,10 @@ mtcars[, c("mpg", "am")]
 
 # Filtrando linhas
 
-mtcars[mtcars$cyl == 4, ]
+mtcars$cyl
+mtcars$cyl == 4
 
+mtcars[mtcars$cyl == 4, ]
 mtcars[mtcars$mpg > 25, ]
 
 # Funções -----------------------------------------------------------------
@@ -420,6 +500,7 @@ seq(4, 10, 2)
 seq(by = 2, to = 10, from = 4)
 seq(2, 10, 4)
 
+?seq
 help(seq)
 
 # Funções têm personalidade. Cada uma pode funcionar de um jeito
@@ -436,7 +517,7 @@ mean(c(1, 2))
 # Exemplo 2
 
 mean(c(1, 2, NA))
-mean(c(1, 2, NA), rm = TRUE)
+mean(c(1, 2, NA), na.rm = TRUE)
 
 cor(mtcars$mpg, mtcars$wt)
 
@@ -471,15 +552,30 @@ minha_soma <- function(x, y) {
   
 }
 
-minha_soma(2, 3)
+minha_cola <- function(x, y) {
+  
+  cola <- paste(x, y)
+  
+  return(cola)
+  
+}
+
+minha_soma(x = 1, y = 0)
+minha_cola(x = "a", y = "b")
 
 # Exercícios --------------------------------------------------------------
 
 # 1. Use a funcao 'sum' para somar os valores de 1 a 100
 
+sum(1:100)
+
 # 2. A função colMeans serve para tirar a média das colunas 
 # de um data frame. Use essa função para calcular a média de
 # todas as colunas do mtcars.
+
+colMeans(mtcars)
+?colMeans
+
 # Dica: veja a documentação da função colMeans se você não
 # souber como utilizá-la.
 
@@ -487,17 +583,40 @@ minha_soma(2, 3)
 # e devolve a raiz quadrada da soma desses números.
 # Dica: sqrt() é a função para raiz quadrada.
 
+minha_raiz_quadrada <- function(a, b) {
+  
+  soma <- a + b
+  raiz <- sqrt(soma)
+  
+  return(raiz)
+  
+}
+
+minha_raiz_quadrada("aagag", 3)
+
 # Pacotes -----------------------------------------------------------------
 
 # Para instalar pacotes
 
+install.packages("tidyverse")
 install.packages(c("tidyverse", "rmarkdown", "devtools"))
+
+install.packages("remotes")
+
+remotes::install_github("curso-r/CursoR")
 
 # Para carregar pacotes
 
 library(tidyverse)
+library(dplyr)
 
 # Também é possível acessar as funções usando ::
 
 dplyr::select()
+
+CursoR::atualizar_material("r4ds1")
+
+
+
+
 

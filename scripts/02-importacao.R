@@ -4,6 +4,7 @@ library(tidyverse)
 
 # Diretório de trabalho
 getwd()
+setwd("dados/")
 
 # Caminhos absolutos
 "/home/william/Documents/Curso-R/intro-programacao-em-r-mestre/dados/imdb.csv"
@@ -11,11 +12,12 @@ getwd()
 # Caminhos relativos
 "dados/imdb.csv"
 
-
 # Tibbles -----------------------------------------------------------------
 
 mtcars
-as_tibble(mtcars)
+class(as_tibble(mtcars))
+
+tibble::rownames_to_column(mtcars)
 
 # Lendo arquivos de texto -------------------------------------------------
 
