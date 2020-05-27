@@ -3,26 +3,59 @@ maximo <- function(x, y) {
   max(x, y)
 }
 
-maximo(55, -55)
+maximo(55, 30)
 
-# solucao 2
+# ()
+
+minha_funcao()
+
+(2 + 5) * 10
+ 2 + 5  * 10
+
+
+# []
+
+mtcars[1,1]
+letters[1:10]
+
+# {}
+
+# expressoes
+# corpo de funcao
+# bloco de códigos de R
+
 maximo <- function(x, y) {
-  if(x > y) {
-    x
-  } else if (x < y) {
-    y
-  } else if(x == y) {
-    x
-  }
+  max(x, y)
 }
 
-maximo(4, 3)
 
-# solucao 3
-maximo <- function(x, y) {
-  resp <- c(x, y)
-  onde_esta_o_maximo <- c(x > y, y > x)
-  resp[onde_esta_o_maximo]
-}
 
-maximo(4, 3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

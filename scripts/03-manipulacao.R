@@ -16,10 +16,17 @@ View(imdb)
 library(skimr)
 skim(imdb)
 
+# dplyr: 6 verbos principais
+# select()
+# filter()
+# arrange()
+# mutate()
+# summarise() + group_by()
+
+
 # select ------------------------------------------------------------------
 
 # Selcionando uma coluna da base
-
 select(imdb, titulo)
 
 # A operação NÃO MODIFICA O OBJETO imdb
@@ -32,7 +39,7 @@ select(imdb, titulo, ano, orcamento)
 
 select(imdb, titulo:cor)
 
-# Funções auxiliares
+# Funções auxiliares (ajudantes)
 
 select(imdb, starts_with("ator"))
 
@@ -44,16 +51,18 @@ select(imdb, starts_with("ator"))
 
 # Selecionando colunas por exclusão
 
-select(imdb, -starts_with("ator"), -titulo)
+select(imdb, -starts_with("ator"), -titulo, -ends_with("2"))
 
 
 # Exercícios --------------------------------------------------------------
 
 # 1. Crie uma tabela com apenas as colunas titulo, diretor, 
 # e orcamento. Salve em um objeto chamado imdb_simples.
+imdb_simples <- select(imdb, titulo, diretor, orcamento)
 
 # 2. Selecione apenas as colunas ator_1, ator_2 e ator_3 usando
 # o ajudante contains().
+select(imdb, contains("ator"))
 
 # arrange -----------------------------------------------------------------
 
@@ -75,22 +84,29 @@ arrange(imdb, desc(ano), orcamento)
 
 df <- tibble(x = c(NA, 2, 1), y = c(1, 2, 3))
 arrange(df, x)
+arrange(df, desc(x))
 
 # Exercícios --------------------------------------------------------------
 
 # 1. Ordene os filmes em ordem crescente de ano e 
 # decrescente de receita e salve em um objeto 
 # chamado filmes_ordenados.
+filmes_ordenados <- arrange(imdb, ano, desc(receita))
 
 # 2. Selecione apenas as colunas título e orçamento 
 # e então ordene de forma decrescente pelo orçamento.
+selecao <- select(imdb, titulo, orcamento)
+selecao <- arrange(selecao, desc(orcamento))
 
 # Pipe (%>%) --------------------------------------------------------------
 
-# Transforma funçõe aninhadas em funções
+# Transforma funções aninhadas em funções
 # sequenciais
 
 # g(f(x)) = x %>% f() %>% g()
+
+x %>% f() %>% g() # CERTO!!!
+x %>% f(x) %>% g(x) #ERRADO!!!
 
 # Receita de bolo sem pipe. 
 # Tente entender o que é preciso fazer.
@@ -125,21 +141,25 @@ esfrie(
 recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
   acrescente("farinha", até = "macio") %>%
   bata(duração = "3min") %>%
+  acrescentar_acucar() %>%
   coloque(lugar = "forma", tipo = "grande", untada = TRUE) %>%
   asse(duração = "50min") %>%
   esfrie("geladeira", "20min")
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
-
 # Exercício ---------------------------------------------------------------
-
 # Refaça o exercício 2 do arrange utilizando o %>%.
+selecao <- arrange(select(imdb, titulo, orcamento), desc(orcamento))
+
+selecao2 <- imdb %>% 
+  select(titulo, orcamento) %>% 
+  arrange(desc(orcamento))
 
 # filter ------------------------------------------------------------------
 
-# Filtrando uma coluna da base
-
+# Filtrando linhas da base
+library(tidyverse)
 imdb %>% filter(nota_imdb > 9)
 imdb %>% filter(diretor == "Quentin Tarantino")
 
@@ -151,12 +171,15 @@ imdb %>% distinct(cor) # saída é uma tibble
 # Filtrando duas colunas da base
 
 ## Recentes e com nota alta
-imdb %>% filter(ano > 2010, nota_imdb > 8.5)
+imdb_recentes_e_nota_alta <- imdb %>% filter(ano > 2010, nota_imdb > 8.5)
 
-imdb %>% filter(ano > 2010 & nota_imdb > 8.5)
+View(imdb %>% filter(ano > 2010 & nota_imdb > 8.5))
 
 ## Gastaram menos de 100 mil, faturaram mais de 1 milhão
-imdb %>% filter(orcamento < 100000, receita > 1000000)
+imdb %>% filter(
+  orcamento < 100000, 
+  receita > 1000000
+)
 
 ## Lucraram
 imdb %>% filter(receita - orcamento > 0)
@@ -169,7 +192,12 @@ imdb %>% filter(ano > 2010)
 imdb %>% filter(!ano > 2010)
 
 # O operador %in%
+5 %in% 1:10
+
 imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
+imdb %>% 
+  filter(ano %in% c("2010", "2016")) %>%
+  glm(duracao ~ ano, data = .)
 
 # O que acontece com o NA?
 df <- tibble(x = c(1, NA, 3))
@@ -190,8 +218,14 @@ imdb$generos[1:6]
 
 str_detect(
   string = imdb$generos[1:6],
-  pattern = "Action"
+  pattern = "[Aa]ction"
 )
+
+toupper(c("Action", "action"))
+tolower(c("Action", "action"))
+# regular expressions
+# expressões regulares
+# regex
 
 ## Pegando apenas os filmes que 
 ## tenham o gênero ação
