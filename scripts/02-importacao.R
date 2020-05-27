@@ -4,7 +4,7 @@ library(tidyverse)
 
 # Diretório de trabalho
 getwd()
-setwd("dados/")
+# setwd("dados/")
 
 # Caminhos absolutos
 "/home/william/Documents/Curso-R/intro-programacao-em-r-mestre/dados/imdb.csv"
@@ -14,6 +14,9 @@ setwd("dados/")
 
 # Tibbles -----------------------------------------------------------------
 
+data.frame 
+tibble
+
 mtcars
 class(as_tibble(mtcars))
 
@@ -21,11 +24,20 @@ tibble::rownames_to_column(mtcars)
 
 # Lendo arquivos de texto -------------------------------------------------
 
+
+library(tidyverse)
 # CSV, separado por vírgula
-imdb_csv <- read_csv(file = "dados/imdb.csv")
+imdb_csv <- read_csv(
+  file = "dados/imdb.csv", 
+  locale = locale(encoding = "UTF-8")
+)
+
+  
+# Natação UTF8
+# NataÃo!Â latin1
 
 # CSV, separado por ponto-e-vírgula
-imdb_csv2 <- read_csv2(file = "dados/imdb2.csv")
+imdb_csv2 <- read_csv2(file = "dados/imdb2.csv") # ;
 
 # TXT, separado por tabulação (tecla TAB)
 imdb_txt <- read_delim(file = "dados/imdb.txt", delim = "\t")
@@ -74,25 +86,14 @@ readxl::read_excel(
 )
 
 # Arrumando classe da coluna mpg
-readxl::read_excel(
+imdb <- read_excel(
   "dados/mtcars_desconfigurado.xlsx",
   sheet = 2,
   skip = 2,
   na = c("", "NT"),
-  col_types = c(
-    "numeric", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess",
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess"
-  )
+  col_types = "guess"
 )
+
 
 # Outros formatos ---------------------------------------------------------
 
@@ -108,13 +109,16 @@ imdb_spss <- read_spss("dados/imdb.sav")
 # As funções iniciam com 'write'
 
 # CSV
-write_csv(imdb, path = "imdb.csv")
+write.csv(imdb_csv, file = "imdb_athos.csv", dec = ",", sep = ";", fileEncoding = "latin1")
 
 # Excel
-
 library(writexl)
+write_xlsx(imdb, path = "dados/imdb_camila.xlsx")
 
-write_xlsx(imdb, path = "imdb.xlsx")
+
+
+
+
 
 # O formato rds -----------------------------------------------------------
 
@@ -123,7 +127,9 @@ write_xlsx(imdb, path = "imdb.xlsx")
 
 imdb_rds <- readr::read_rds("dados/imdb.rds")
 
-readr::write_rds(imdb_rds, path = "dados/imdb_compacto.rds", compress = "gz")
+readr::write_rds(imdb_rds, path = "dados/imdb_compacto.rds")
+
+
 
 # Conexão com banco de dados e SQL ----------------------------------------
 
@@ -154,3 +160,24 @@ RSQLite::dbWriteTable(conexao, "mtcars", mtcars)
 RSQLite::dbListTables(conexao)
 
 # Mais informações: db.rstudio.com
+
+
+
+obj <- imdb_sqlite %>%
+  select(diretor, starts_with("d"))  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
