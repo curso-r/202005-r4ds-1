@@ -164,7 +164,10 @@ RSQLite::dbListTables(conexao)
 
 
 obj <- imdb_sqlite %>%
-  select(diretor, starts_with("d"))  
+  select(diretor, starts_with("d")) %>%
+  ... %>%
+  collect()
+  
 
 
 
