@@ -17,9 +17,12 @@ em maio/junho de 2020.
 
 ## Scripts
 
-| script                  | link                                                                      |
-| :---------------------- | :------------------------------------------------------------------------ |
-| 01-introducao-ao-R.R    | <https://curso-r.github.io/202005-r4ds-1/scripts/01-introducao-ao-R.R>    |
-| 01-solucao-funcao-max.R | <https://curso-r.github.io/202005-r4ds-1/scripts/01-solucao-funcao-max.R> |
-| 02-importacao.R         | <https://curso-r.github.io/202005-r4ds-1/scripts/02-importacao.R>         |
-| 03-manipulacao.R        | <https://curso-r.github.io/202005-r4ds-1/scripts/03-manipulacao.R>        |
+| script                            | link                                                                                |
+| :-------------------------------- | :---------------------------------------------------------------------------------- |
+| 01-introducao-ao-R.R              | <https://curso-r.github.io/202005-r4ds-1/scripts/01-introducao-ao-R.R>              |
+| 01-solucao-funcao-max.R           | <https://curso-r.github.io/202005-r4ds-1/scripts/01-solucao-funcao-max.R>           |
+| 02-importacao.R                   | <https://curso-r.github.io/202005-r4ds-1/scripts/02-importacao.R>                   |
+| 03-manipulacao.R                  | <https://curso-r.github.io/202005-r4ds-1/scripts/03-manipulacao.R>                  |
+| 04-distinct.R                     | <https://curso-r.github.io/202005-r4ds-1/scripts/04-distinct.R>                     |
+| 04-solucao-imdb-nao-estruturada.R | <https://curso-r.github.io/202005-r4ds-1/scripts/04-solucao-imdb-nao-estruturada.R> |
+| dicas\_rapidas.R                  | <https://curso-r.github.io/202005-r4ds-1/scripts/dicas_rapidas.R>                   |
