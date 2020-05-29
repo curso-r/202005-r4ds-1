@@ -91,9 +91,29 @@ imdb <- read_excel(
   sheet = 2,
   skip = 2,
   na = c("", "NT"),
-  col_types = "guess"
+  col_types = c(
+    "numeric",
+    rep("guess", 14)
+  )
 )
 
+c(
+  "numeric",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess",
+  "guess"
+)
 
 # Outros formatos ---------------------------------------------------------
 
