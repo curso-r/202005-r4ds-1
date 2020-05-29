@@ -195,9 +195,6 @@ imdb %>% filter(!ano > 2010)
 5 %in% 1:10
 
 imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
-imdb %>% 
-  filter(ano %in% c("2010", "2016")) %>%
-  glm(duracao ~ ano, data = .)
 
 # O que acontece com o NA?
 df <- tibble(x = c(1, NA, 3))
@@ -236,16 +233,27 @@ imdb %>% filter(str_detect(generos, "Action"))
 # 1. Criar um objeto chamado `filmes_pb` apenas com filmes 
 # preto e branco.
 
+unique(imdb$cor) # saída é um vetor
+table(imdb$cor, useNA = "if") # saída é um vetor
+filmes_pb <- imdb %>% filter(cor == "Black and White")
+filmes_pb <- imdb %>% filter(str_detect(cor, "Black and White"))
+unique(filmes_pb$cor)
+table(filmes_pb$cor)
+
 # 2. Criar um objeto chamado curtos_legais com filmes 
 # de 90 minutos ou menos de duração e nota no imdb maior do que 8.5.
+curtos_legais <- imdb %>% filter(duracao , 90, nota_imdb > 8.5)
+
 
 # mutate ------------------------------------------------------------------
 
 # Modificando uma coluna
 
 imdb %>% 
-  mutate(duracao = duracao/60) %>% 
+  mutate(duracao = round(duracao/60)) %>% 
   View()
+
+imdb$duracao <- imdb$duracao/60
 
 # Criando uma nova coluna
 
@@ -266,22 +274,49 @@ imdb %>% mutate(
 ) %>% 
   View()
 
-
 # Exercícios --------------------------------------------------------------
 
 # 1. Crie uma coluna chamada prejuizo (orcamento - receita)
 # e salve a nova tabela em um objeto chamado imdb_prejuizo.
 # Em seguida, filtre apenas os filmes que deram prejuízo
 # e ordene a tabela por ordem crescente de prejuízo.
-
+# mutate, filter, arrange
+imdb_prejuizo <- imdb %>%
+  mutate(
+    prejuizo = orcamento - receita,
+    deu_prejuizo = prejuizo > 0
+  ) %>%
+  filter(deu_prejuizo) %>%
+  arrange(prejuizo) 
+  
 # 2. Crie uma nova coluna que classifique o filme em 
 # "recente" (posterior a 2000) e "antigo" de 2000 para trás.
-
+# mutate, ifelse
+imdb_prejuizo <- imdb_prejuizo %>%
+  mutate(
+    recente_ou_antigo = ifelse(ano > 2000, "recente", "antigo")
+  )
+  
 # summarise ---------------------------------------------------------------
 
 # Sumarizando uma coluna
 
-imdb %>% summarise(media_orcamento = mean(orcamento, na.rm = TRUE))
+imdb %>% 
+  summarise(
+    media_orcamento = mean(orcamento, na.rm = TRUE)
+  )
+
+# funcoes que transformam -> N valores
+log(1:10)
+sqrt()
+str_detect()
+
+# funcoes que sumarizam -> 1 valor
+mean(c(1, NA, 2))
+mean(c(1, NA, 2), na.rm = TRUE)
+n_distinct()
+
+
 
 # repare que a saída ainda é uma tibble
 
@@ -298,7 +333,10 @@ imdb %>% summarise(
 imdb %>% summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   mediana_orcamento = median(orcamento, na.rm = TRUE),
-  variancia_orcamento = var(orcamento, na.rm = TRUE)
+  variancia_orcamento = var(orcamento, na.rm = TRUE),
+  media_orcamento = mean(orcamento, na.rm = TRUE),
+  media_receita = mean(receita, na.rm = TRUE),
+  media_lucro = mean(receita - orcamento, na.rm = TRUE)
 )
 
 # Tabela descritiva
@@ -306,6 +344,7 @@ imdb %>% summarise(
 imdb %>% summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   media_receita = mean(receita, na.rm = TRUE),
+  variancia_da_receita = var(receita, na.rm = TRUE),
   qtd = n(),
   qtd_diretores = n_distinct(diretor)
 )
@@ -314,13 +353,17 @@ imdb %>% summarise(
 
 # Agrupando a base por uma variável.
 
-imdb %>% group_by(cor)
+imdb %>% group_by(ano, cor)
 
 # Agrupando e sumarizando
 
-imdb %>% 
-  group_by(cor) %>% 
-  summarise(receita_media = mean(receita, na.rm = TRUE))
+imdb %>%
+  filter(!is.na(cor)) %>% 
+  group_by(cor, ano) %>% 
+  summarise(
+    receita_media = mean(receita, na.rm = TRUE),
+    receita_dp = sd(receita, na.rm = TRUE)
+  )
 
 imdb %>% 
   group_by(diretor) %>% 
@@ -332,14 +375,35 @@ imdb %>%
 
 # 1. Calcule a duração média e mediana dos filmes 
 # da base.
+imdb %>%
+  summarise(
+    duracao_media = mean(duracao, na.rm = TRUE),
+    duracao_mediana = median(duracao, na.rm = TRUE)
+  )
 
 # 2. Calcule o lucro médio dos filmes com duracao 
 # menor que 60 minutos. 
+imdb %>%
+  filter(duracao < 60) %>%
+  summarise(
+    lucro_medio = mean(receita-orcamento, na.rm = TRUE),
+    n_filmes = n(),
+    receitas_falantes = sum(is.na(receita))
+  )
 
 # 3. Apresente na mesma tabela o lucro médio 
 # dos filmes com duracao menor que 60 minutos
 # e o lucro médio dos filmes com duracao maior 
 # ou igual a 60 minutos.
+imdb %>%
+  mutate(
+    dura_mais_que_60min = ifelse(duracao < 60, "Menos de 1h", "Mais de 1h")
+  ) %>%
+  group_by(dura_mais_que_60min) %>%
+  summarise(
+    lucro_medio = mean(receita-orcamento, na.rm = TRUE)
+  )
+
 
 # left join ---------------------------------------------------------------
 
@@ -374,7 +438,7 @@ tab_lucro_diretor <- imdb %>%
 # Usamos a funçõa left join para trazer a
 # coluna lucro_medio para a base imdb, associando
 # cada valor de lucro_medio ao respectivo diretor
-left_join(imdb, tab_lucro_diretor, by = "diretor")
+left_join(imdb, tab_lucro_diretor, by = "diretor") %>% View
 
 # Salvando em um objeto
 imdb_com_lucro_medio <- imdb %>% 
@@ -412,7 +476,11 @@ imdb %>%
 
 # OBS: existe uma família de joins
 
-band_instruments %>% left_join(band_members)
+colnames(band_members) <- c("NOME", "BANDA")
+band_members[1,1] <- NA
+band_instruments[1,1] <- NA
+
+band_instruments %>% left_join(band_members, by = c("name" = "NOME"))
 band_instruments %>% right_join(band_members)
 band_instruments %>% inner_join(band_members)
 band_instruments %>% full_join(band_members)
