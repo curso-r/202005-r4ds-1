@@ -2,7 +2,8 @@
 ## Dicas rápidas! -----------------------------
 
 # qual a função que faz/constrói vetores?
-
+c("2", "dfsdf")
+c(1,56)
 
 
 # qual a diferença entre as duas partes abaixo?
@@ -21,6 +22,10 @@ y <- c(1,2,3,4,5)
 x <- 1:5
 sum(x)
 
+x %>% sum()
+1:5 %>% sum()
+c(1,2,3,4,5) %>% sum()
+
 # parte 2
 sum(c(1,2,3,4,5))
 
@@ -32,10 +37,10 @@ sum(c(1,2,3,4,5))
 x <- 1:5
 
 # parte 1
-x[x > 3]
+x[x > 3 & x < 2]
 
 # parte 2
-x[c(FALSE, FALSE, FALSE, TRUE, TRUE)]
+x[!c(FALSE, FALSE, FALSE, TRUE, TRUE)]
 
 
 # qual a diferença entre as duas partes abaixo?
@@ -45,7 +50,7 @@ x <- 1:5
 sin(x)
 
 # parte 2
-x %>% sin
+x %>% sin()
 
 
 
@@ -63,7 +68,11 @@ sin(c(1,2,3,4,5))
 # parte 2
 sin(as.numeric(c("1","2","3","4","5")))
 
+class(1:3)
 
+2010   #integer
+2010.0 #numeric
+2010.5 #numeric
 
 # descubra quais pastas estão na sua 
 # área de trabalho sem sair daqui!
@@ -71,19 +80,22 @@ sin(as.numeric(c("1","2","3","4","5")))
 
 
 
+
 # Qual a diferença entre apertar CTRL+ENTER 
 # sem selecionar nada VERSUS selecionando
 # uma linha inteira?
-
+x <- 1:15
 
 
 # Utilizando o tab, o nome do pacote e o '::', 
 # faça o rstudio listar todas as funções do
 # pacote stringr.
+dplyr::mutate()
 
+dplyr::distinct()
 
 
 # o x é um vetor pequeno, então qual seria 
 # uma maneira simples e direta de ver o que tem nele?
-
-
+x <- runif(15)
+x
