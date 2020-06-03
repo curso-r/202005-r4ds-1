@@ -24,6 +24,8 @@ imdb <- imdb %>% mutate(lucro = receita - orcamento)
 
 # Gráfico de pontos (dispersão) -------------------------------------------
 
+# ggplot2::ggplot()
+
 # Apenas o canvas
 imdb %>% 
   ggplot()
@@ -43,6 +45,10 @@ imdb %>%
   geom_point(aes(x = orcamento, y = receita)) +
   geom_abline(intercept = 0, slope = 1, color = "red")
 
+# y = a + b * x
+# y = 0 + 1 * x
+# y = x
+
 # Observe como cada elemento é uma camada do gráfico.
 # Agora colocamos a camada da linha antes da camada
 # dos pontos.
@@ -61,29 +67,45 @@ imdb %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
   ) %>%
+  filter(!is.na(lucrou)) %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita, color = lucrou))
 
 # Salvando um gráfico em um arquivo
-imdb %>%
+meu_grafico <- imdb %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
   ) %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita, color = lucrou))
 
-ggsave("meu_grafico.png")
+ggsave(filename = "meu_grafico.png", plot = meu_grafico)
 
+# imdb %>%
+#   mutate(
+#     lucrou = ifelse(lucro <= 0, "Não", "Sim")
+#   ) %>% 
+#   select(lucro, lucrou) %>% View
 
 # Exercícios --------------------------------------------------------------
 
 # a. Crie um gráfico de dispersão da nota do imdb pelo orçamento.
 
+imdb %>% 
+  ggplot() +
+  geom_point(aes(y = nota_imdb, x = orcamento))
+
 # b. Pinte todos os pontos do gráfico de azul.
+
+imdb %>% mutate(nova_coluna = "blue") %>% View
+
+imdb %>% 
+  ggplot() +
+  geom_point(aes(y = nota_imdb, x = orcamento), color = "blue")
 
 # Gráfico de linhas -------------------------------------------------------
 
-# Média dos filmes ao longo dos anos
+# Nota média dos filmes ao longo dos anos
 
 imdb %>% 
   group_by(ano) %>% 
@@ -100,7 +122,7 @@ imdb %>%
   ggplot() +
   geom_line(aes(x = ano, y = num_filmes, color = cor))
 
-# Nota média do Spielberg por ano
+# Nota média do Robert De Niro por ano
 imdb %>% 
   filter(ator_1 == "Robert De Niro") %>% 
   group_by(ano) %>% 
@@ -141,12 +163,21 @@ imdb %>%
 
 # Faça um gráfico do orçamento médio dos filmes ao longo dos anos.
 
+imdb %>% 
+  group_by(ano) %>% 
+  summarise(orc_medio = mean(orcamento, na.rm = TRUE)) %>% 
+  ggplot() +
+  geom_line(aes(x = ano, y = orc_medio))
+
 # Gráfico de barras -------------------------------------------------------
+
+# imdb %>% 
+#   top_n(10, receita)
 
 # Número de filmes dos diretores da base
 imdb %>% 
-  count(diretor) %>%
-  top_n(10, n) %>%
+  count(diretor, name = "qtd_filmes") %>% 
+  top_n(10, qtd_filmes) %>%
   ggplot() +
   geom_col(aes(x = diretor, y = n))
 
@@ -158,6 +189,7 @@ imdb %>%
   ggplot() +
   geom_col(
     aes(x = diretor, y = n, fill = diretor),
+    color = "black",
     show.legend = FALSE
   )
 
@@ -173,6 +205,9 @@ imdb %>%
   ) +
   coord_flip()
   
+as.numeric(as.factor(imdb$diretor[1:5]))
+
+as.numeric(imdb$diretor[1:5])
 
 # Ordenando as barras
 imdb %>% 
