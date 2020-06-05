@@ -29,4 +29,8 @@ em maio/junho de 2020.
 | 04-solucao-imdb-nao-estruturada.R             | <https://curso-r.github.io/202005-r4ds-1/scripts/04-solucao-imdb-nao-estruturada.R>             |
 | 05-ggplot2.R                                  | <https://curso-r.github.io/202005-r4ds-1/scripts/05-ggplot2.R>                                  |
 | 05-solucao\_importando\_varias\_bases.R       | <https://curso-r.github.io/202005-r4ds-1/scripts/05-solucao_importando_varias_bases.R>          |
+| 06-flexdashboard.Rmd                          | <https://curso-r.github.io/202005-r4ds-1/scripts/06-flexdashboard.Rmd>                          |
+| 06-rmarkdown.Rmd                              | <https://curso-r.github.io/202005-r4ds-1/scripts/06-rmarkdown.Rmd>                              |
 | dicas\_rapidas.R                              | <https://curso-r.github.io/202005-r4ds-1/scripts/dicas_rapidas.R>                               |
+| exemplo.Rmd                                   | <https://curso-r.github.io/202005-r4ds-1/scripts/exemplo.Rmd>                                   |
+| flexdashboard-aula.Rmd                        | <https://curso-r.github.io/202005-r4ds-1/scripts/flexdashboard-aula.Rmd>                        |
