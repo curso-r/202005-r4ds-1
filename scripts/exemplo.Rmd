@@ -1,0 +1,32 @@
+---
+title: "Meu relatório"
+author: "William amorim"
+date: "6/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = FALSE
+)
+```
+
+
+# Meu título
+ag;gljag;lajga
+
+```{r}
+1+1
+```
+
+```{r}
+
+```
+
+lgkaghakghklaghlgakghgaga
+
+## Secao 2
+
+
+

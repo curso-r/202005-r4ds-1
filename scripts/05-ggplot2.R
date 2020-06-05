@@ -9,7 +9,6 @@ imdb <- read_rds("dados/imdb.rds")
 
 imdb <- imdb %>% mutate(lucro = receita - orcamento)
 
-
 # Filosofia ---------------------------------------------------------------
 
 # Um gráfico estatístico é uma representação visual dos dados 
@@ -109,9 +108,10 @@ imdb %>%
 
 imdb %>% 
   group_by(ano) %>% 
-  summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
+  summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>%  
   ggplot() +
-  geom_line(aes(x = ano, y = nota_media))
+  geom_line(aes(x = ano, y = nota_media)) +
+  geom_point(aes(x = ano, y = nota_media))
 
 # Número de filmes coloridos e preto e branco por ano 
 
@@ -209,6 +209,8 @@ as.numeric(as.factor(imdb$diretor[1:5]))
 
 as.numeric(imdb$diretor[1:5])
 
+library(forcats)
+
 # Ordenando as barras
 imdb %>% 
   count(diretor) %>%
@@ -240,12 +242,34 @@ imdb %>%
   geom_label(aes(x = diretor, y = n/2, label = n)) +
   coord_flip()
 
-
 # Exercícios --------------------------------------------------------------
 
 # a. Transforme o gráfico do exercício anterior em um gráfico de barras.
 
+imdb %>% 
+  group_by(ano) %>% 
+  summarise(orc_medio = mean(orcamento, na.rm = TRUE)) %>% 
+  ggplot() +
+  geom_col(aes(x = ano, y = orc_medio))
+
+# Exemplo geom_bar
+imdb %>% 
+  ggplot() +
+  geom_bar(aes(x = classificacao))
+
+imdb %>% 
+  count(classificacao) %>% 
+  ggplot() +
+  geom_col(aes(x = classificacao, y = n))
+
 # b. Refaça o gráfico apenas para filmes de 1989 para cá.
+
+imdb %>% 
+  filter(ano >= 1989) %>% 
+  group_by(ano) %>% 
+  summarise(orc_medio = mean(orcamento, na.rm = TRUE)) %>% 
+  ggplot() +
+  geom_col(aes(x = ano, y = orc_medio))
 
 # Histogramas e boxplots --------------------------------------------------
 
@@ -262,7 +286,8 @@ imdb %>%
   geom_histogram(
     aes(x = lucro), 
     binwidth = 100000000,
-    color = "white"
+    color = "black",
+    fill = "red"
   )
 
 # Boxplot do lucro dos filmes dos diretores
@@ -280,8 +305,14 @@ imdb %>%
   filter(!is.na(diretor)) %>%
   group_by(diretor) %>% 
   filter(n() >= 15) %>% 
-  ungroup() %>% 
-  mutate(diretor = forcats::fct_reorder(diretor, lucro, na.rm = TRUE)) %>% 
+  ungroup() %>%
+  mutate(
+    diretor = forcats::fct_reorder(
+      diretor, 
+      lucro,
+      .fun = median,
+      na.rm = TRUE)
+  ) %>% 
   ggplot() +
   geom_boxplot(aes(x = diretor, y = lucro))
 
@@ -290,14 +321,53 @@ imdb %>%
 
 #a. Descubra quais são os 5 atores que mais aparecem na coluna ator_1.
 
+atores_que_mais_aparecem <- imdb %>% 
+  count(ator_1) %>% 
+  top_n(5, n) %>% 
+  pull(ator_1)
+
+tabela_atores_que_mais_aparecem <- imdb %>% 
+  count(ator_1) %>% 
+  top_n(5, n)
+
+
 #b. Faça um boxplot do lucro dos filmes desses atores.
+
+tabela_atores_que_mais_aparecem %>% 
+  left_join(imdb, by = "ator_1") %>% 
+  mutate(
+    ator_1 = forcats::fct_reorder(ator_1, lucro, na.rm = TRUE)
+  ) %>% 
+  ggplot() +
+  geom_boxplot(aes(x = ator_1, y = lucro))
+
+imdb %>% 
+  count(ator_1) %>% 
+  top_n(5, n) %>% 
+  left_join(imdb, by = "ator_1") %>% 
+  mutate(
+    ator_1 = forcats::fct_reorder(ator_1, lucro, na.rm = TRUE)
+  ) %>% 
+  ggplot() +
+  geom_boxplot(aes(x = ator_1, y = lucro))
+
+
+imdb %>% 
+  filter(ator_1 %in% atores_que_mais_aparecem) %>%
+  mutate(
+    ator_1 = forcats::fct_reorder(ator_1, lucro, na.rm = TRUE)
+  ) %>% 
+  ggplot() +
+  geom_boxplot(aes(x = ator_1, y = lucro))
 
 # Título e labels ---------------------------------------------------------
 
 # Labels
 imdb %>%
   ggplot() +
-  geom_point(mapping = aes(x = orcamento, y = receita, color = lucro)) +
+  geom_point(
+    aes(x = orcamento, y = receita, size = lucro)
+  ) +
   labs(
     x = "Orçamento ($)",
     y = "Receita ($)",
@@ -313,6 +383,7 @@ imdb %>%
   ggplot() +
   geom_line(aes(x = ano, y = nota_media)) +
   scale_x_continuous(breaks = seq(1916, 2016, 10)) +
+  # scale_x_continuous(breaks = 1916:2020) +
   scale_y_continuous(breaks = seq(0, 10, 2))
 
 # Visão do gráfico
@@ -323,7 +394,7 @@ imdb %>%
   geom_line(aes(x = ano, y = nota_media)) +
   scale_x_continuous(breaks = seq(1916, 2016, 10)) +
   scale_y_continuous(breaks = seq(0, 10, 2)) +
-  coord_cartesian(ylim = c(0, 10))
+  coord_cartesian(ylim = c(0, 10), xlim = c(1900, 2020))
 
 # Cores -------------------------------------------------------------------
 
@@ -333,13 +404,15 @@ imdb %>%
   filter(!is.na(diretor)) %>% 
   top_n(5, n) %>%
   ggplot() +
-  geom_bar(
+  geom_col(
     aes(x = diretor, y = n, fill = diretor), 
     stat = "identity",
     show.legend = FALSE
   ) +
   coord_flip() +
-  scale_fill_manual(values = c("red", "blue", "green", "pink", "purple"))
+  scale_fill_manual(
+    values = c("#7ea6f8", "blue", "green", "pink", "purple")
+  )
 
 # Escolhendo pelo hexadecimal
 imdb %>% 
@@ -366,10 +439,15 @@ imdb %>%
   geom_line(aes(x = ano, y = num_filmes, color = cor)) +
   scale_color_discrete(labels = c("Preto e branco", "Colorido"))
 
+scale_color_gradient(low = "white", high = "black")
+
 # Definiando cores das formas geométricas
 imdb %>% 
   ggplot() +
-  geom_point(mapping = aes(x = orcamento, y = receita), color = "#ff7400")
+  geom_point(
+    mapping = aes(x = orcamento, y = receita), 
+    color = "#ff7400"
+  )
 
 # Tema --------------------------------------------------------------------
 
@@ -377,10 +455,12 @@ imdb %>%
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita)) +
+  theme_minimal()
+  
   # theme_bw() 
   # theme_classic() 
   # theme_dark()
-  theme_minimal()
+  # theme_minimal()
 
 # A função theme()
 imdb %>% 
@@ -391,6 +471,11 @@ imdb %>%
     subtitle = "Receita vs Orçamento"
   ) +
   theme(
-    plot.title = element_text(hjust = 0.5),
-    plot.subtitle = element_text(hjust = 0.5)
+    plot.title = element_text(
+      hjust = 0.5, 
+      color = "purple", 
+      face = "bold" 
+    ),
+    plot.subtitle = element_text(hjust = 0.5),
+    panel.background = element_rect(fill = "yellow")
   )

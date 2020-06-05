@@ -1,0 +1,100 @@
+---
+title: "Meu dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: journal
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+
+imdb <- read_rds("../dados/imdb.rds")
+```
+
+Pagina 1
+===================================================
+
+Column
+-----------------------------------------------------------------------
+
+### 20 maiores lucros
+
+```{r}
+imdb %>% 
+  mutate(lucro = receita - orcamento) %>% 
+  top_n(20, lucro) %>% 
+  arrange(desc(lucro)) %>% 
+  mutate(lucro = scales::dollar(lucro)) %>% 
+  select(titulo, lucro) %>% 
+  knitr::kable()
+```
+
+### 20 maiores receitas
+
+```{r}
+imdb %>% 
+  # mutate(lucro = receita - orcamento) %>% 
+  top_n(20, receita) %>% 
+  arrange(desc(receita)) %>% 
+  mutate(receita = scales::dollar(receita)) %>% 
+  select(titulo, receita) %>% 
+  knitr::kable()
+```
+
+Column 
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r, fig.width=20}
+imdb %>%
+  filter(!is.na(receita), ano > 1970) %>% 
+  group_by(ano) %>% 
+  summarise(receita_media = mean(receita, na.rm = TRUE)) %>%
+  ggplot(aes(x = ano, y = receita_media)) +
+  geom_line() +
+  labs(x = "Ano", y = "Receita") +
+  theme_minimal()
+```
+
+### Chart C
+
+```{r}
+
+```
+
+Pagina 2
+===================================================
+
+Coluna
+------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
+Coluna
+------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
