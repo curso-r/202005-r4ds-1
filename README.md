@@ -38,8 +38,8 @@ em maio/junho de 2020.
 
 ## Trabalhos vencedores
 
-| script                                            | link                                                                                                           |
-| :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
-| trabalhos\_vencedores//Desafio\_flexdasboard.html | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores//Desafio_flexdasboard.html> |
-| trabalhos\_vencedores/concursolouise.html         | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores/concursolouise.html>        |
-| trabalhos\_vencedores/Projeto\_Curso-R.html       | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores/Projeto_Curso-R.html>       |
+| script                     | link                                                                                     |
+| :------------------------- | :--------------------------------------------------------------------------------------- |
+| Desafio\_flexdasboard.html | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Desafio_flexdasboard.html> |
+| concursolouise.html        | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/concursolouise.html>       |
+| Projeto\_Curso-R.html      | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Projeto_Curso-R.html>      |
