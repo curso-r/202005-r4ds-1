@@ -37,3 +37,19 @@ knitr::kable(
   )
 )
 ```
+
+## Trabalhos vencedores
+
+```{r}
+knitr::kable(
+  tibble::tibble(
+    script = c(
+      "trabalhos_vencedores//Desafio_flexdasboard.html",
+      "trabalhos_vencedores/concursolouise.html",
+      "trabalhos_vencedores/Projeto_Curso-R.html"
+    ),
+    link = paste0("https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/", script)
+  )
+)
+```
+

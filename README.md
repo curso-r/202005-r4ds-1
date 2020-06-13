@@ -34,3 +34,24 @@ em maio/junho de 2020.
 | dicas\_rapidas.R                              | <https://curso-r.github.io/202005-r4ds-1/scripts/dicas_rapidas.R>                               |
 | exemplo.Rmd                                   | <https://curso-r.github.io/202005-r4ds-1/scripts/exemplo.Rmd>                                   |
 | flexdashboard-aula.Rmd                        | <https://curso-r.github.io/202005-r4ds-1/scripts/flexdashboard-aula.Rmd>                        |
+
+## Trabalhos vencedores
+
+``` r
+knitr::kable(
+  tibble::tibble(
+    script = c(
+      "trabalhos_vencedores//Desafio_flexdasboard.html",
+      "trabalhos_vencedores/concursolouise.html",
+      "trabalhos_vencedores/Projeto_Curso-R.html"
+    ),
+    link = paste0("https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/", script)
+  )
+)
+```
+
+| script                                            | link                                                                                                           |
+| :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
+| trabalhos\_vencedores//Desafio\_flexdasboard.html | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores//Desafio_flexdasboard.html> |
+| trabalhos\_vencedores/concursolouise.html         | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores/concursolouise.html>        |
+| trabalhos\_vencedores/Projeto\_Curso-R.html       | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/trabalhos_vencedores/Projeto_Curso-R.html>       |
