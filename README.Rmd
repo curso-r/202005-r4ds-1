@@ -40,7 +40,7 @@ knitr::kable(
 
 ## Trabalhos vencedores
 
-```{r}
+```{r, echo=FALSE}
 knitr::kable(
   tibble::tibble(
     script = c(

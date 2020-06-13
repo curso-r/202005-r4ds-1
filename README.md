@@ -27,6 +27,7 @@ em maio/junho de 2020.
 | 03-manipulacao.R                              | <https://curso-r.github.io/202005-r4ds-1/scripts/03-manipulacao.R>                              |
 | 04-distinct.R                                 | <https://curso-r.github.io/202005-r4ds-1/scripts/04-distinct.R>                                 |
 | 04-solucao-imdb-nao-estruturada.R             | <https://curso-r.github.io/202005-r4ds-1/scripts/04-solucao-imdb-nao-estruturada.R>             |
+| 05-ggplot2-exercicios.R                       | <https://curso-r.github.io/202005-r4ds-1/scripts/05-ggplot2-exercicios.R>                       |
 | 05-ggplot2.R                                  | <https://curso-r.github.io/202005-r4ds-1/scripts/05-ggplot2.R>                                  |
 | 05-solucao\_importando\_varias\_bases.R       | <https://curso-r.github.io/202005-r4ds-1/scripts/05-solucao_importando_varias_bases.R>          |
 | 06-flexdashboard.Rmd                          | <https://curso-r.github.io/202005-r4ds-1/scripts/06-flexdashboard.Rmd>                          |
@@ -36,19 +37,6 @@ em maio/junho de 2020.
 | flexdashboard-aula.Rmd                        | <https://curso-r.github.io/202005-r4ds-1/scripts/flexdashboard-aula.Rmd>                        |
 
 ## Trabalhos vencedores
-
-``` r
-knitr::kable(
-  tibble::tibble(
-    script = c(
-      "trabalhos_vencedores//Desafio_flexdasboard.html",
-      "trabalhos_vencedores/concursolouise.html",
-      "trabalhos_vencedores/Projeto_Curso-R.html"
-    ),
-    link = paste0("https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/", script)
-  )
-)
-```
 
 | script                                            | link                                                                                                           |
 | :------------------------------------------------ | :------------------------------------------------------------------------------------------------------------- |
