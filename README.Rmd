@@ -46,7 +46,8 @@ knitr::kable(
     script = c(
       "Desafio_flexdasboard.html",
       "concursolouise.html",
-      "Projeto_Curso-R.html"
+      "Projeto_Curso-R.html",
+      "analise_descritiva.pdf"
     ),
     link = paste0("https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/", script)
   )

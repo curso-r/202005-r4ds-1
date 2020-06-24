@@ -43,3 +43,4 @@ em maio/junho de 2020.
 | Desafio\_flexdasboard.html | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Desafio_flexdasboard.html> |
 | concursolouise.html        | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/concursolouise.html>       |
 | Projeto\_Curso-R.html      | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Projeto_Curso-R.html>      |
+| analise\_descritiva.pdf    | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/analise_descritiva.pdf>    |
