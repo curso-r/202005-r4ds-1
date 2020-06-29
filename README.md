@@ -27,6 +27,7 @@ em maio/junho de 2020.
 | 03-manipulacao.R                              | <https://curso-r.github.io/202005-r4ds-1/scripts/03-manipulacao.R>                              |
 | 04-distinct.R                                 | <https://curso-r.github.io/202005-r4ds-1/scripts/04-distinct.R>                                 |
 | 04-solucao-imdb-nao-estruturada.R             | <https://curso-r.github.io/202005-r4ds-1/scripts/04-solucao-imdb-nao-estruturada.R>             |
+| 05-ggplot2-exercicios.R                       | <https://curso-r.github.io/202005-r4ds-1/scripts/05-ggplot2-exercicios.R>                       |
 | 05-ggplot2.R                                  | <https://curso-r.github.io/202005-r4ds-1/scripts/05-ggplot2.R>                                  |
 | 05-solucao\_importando\_varias\_bases.R       | <https://curso-r.github.io/202005-r4ds-1/scripts/05-solucao_importando_varias_bases.R>          |
 | 06-flexdashboard.Rmd                          | <https://curso-r.github.io/202005-r4ds-1/scripts/06-flexdashboard.Rmd>                          |
@@ -34,3 +35,12 @@ em maio/junho de 2020.
 | dicas\_rapidas.R                              | <https://curso-r.github.io/202005-r4ds-1/scripts/dicas_rapidas.R>                               |
 | exemplo.Rmd                                   | <https://curso-r.github.io/202005-r4ds-1/scripts/exemplo.Rmd>                                   |
 | flexdashboard-aula.Rmd                        | <https://curso-r.github.io/202005-r4ds-1/scripts/flexdashboard-aula.Rmd>                        |
+
+## Trabalhos vencedores
+
+| script                     | link                                                                                     |
+| :------------------------- | :--------------------------------------------------------------------------------------- |
+| Desafio\_flexdasboard.html | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Desafio_flexdasboard.html> |
+| concursolouise.html        | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/concursolouise.html>       |
+| Projeto\_Curso-R.html      | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/Projeto_Curso-R.html>      |
+| analise\_descritiva.pdf    | <https://curso-r.github.io/202005-r4ds-1/trabalhos_vencedores/analise_descritiva.pdf>    |
